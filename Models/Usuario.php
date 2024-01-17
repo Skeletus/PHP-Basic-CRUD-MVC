@@ -1,6 +1,6 @@
 <?php
 
-require "config/Connection.php";
+require "../config/Connection.php";
 
 class Usuario
 {
@@ -38,12 +38,11 @@ class Usuario
         $result->bindParam(1,$correo);
         $result->execute();
         $fila = $result->fetch();
-        if(password_verify($clave, $fila["clave"]))
-        {
-            return true;
+        if ($fila !== false && password_verify($clave, $fila["clave"])) {
+            return $fila;
         }
-        return false;
-        
+            return false;
+
     }
 }
 
