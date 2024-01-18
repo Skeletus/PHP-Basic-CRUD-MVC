@@ -77,6 +77,14 @@ include "layouts/head.php";     ?>
 </div>
 <!--==========================================-->
 
+
+<!-- =========== | MODAL | ===============-->
+<?php
+include "modals/Create/MCategoria.php";
+include "modals/Update/MCategoria.php";
+?>
+<!--==========================================-->
+
 <!-- ========= | scripts robust | ============-->
 <?php  include "layouts/main_scripts.php"; ?>
 <!--==========================================-->
@@ -85,6 +93,7 @@ include "layouts/head.php";     ?>
 
 <script src="../app-assets/plugins/DataTables/datatables.min.js"></script>
 <script src="../app-assets/plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="../app-assets/plugins/toastr/toastr.min.js"></script>
 <script src="../assets/js/Categoria.js" type="text/javascript"></script>	
 <!--==========================================-->	
 
