@@ -39,6 +39,7 @@
     <!-- END Custom CSS-->
     <link rel="stylesheet" href="../app-assets/plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../app-assets/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="../app-assets/plugins/sweetalert2/dist/sweetalert2.min.css">
   </head>
   <body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar">
   
