@@ -81,6 +81,36 @@ class Categoria
 
     }
 
+    /// <summary>
+    /// Function to eliminate a categoria
+    /// </summary>
+    function EliminarCategoria($categoria_id)
+    {
+        $query = "UPDATE categoria SET estado = 0 WHERE categoria_id = ?";
+        $result = $this->con->prepare($query);
+        $result->bindParam(1,$categoria_id);
+        if($result->execute())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Function to activae a categoria
+    /// </summary>
+    function ActivarCategoria($categoria_id)
+    {
+        $query = "UPDATE categoria SET estado = 1 WHERE categoria_id = ?";
+        $result = $this->con->prepare($query);
+        $result->bindParam(1,$categoria_id);
+        if($result->execute())
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 ?>
