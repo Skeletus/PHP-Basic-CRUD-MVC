@@ -13,14 +13,24 @@ switch ($_REQUEST["Operator"])
             for($i = 0; $i < count($datos); $i++)
             {
                 $list[] = array (
-                    "op"=>'<div class="btn-group">
-                    <button class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="icon-gear"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                    <a class="dropdown-item" data-toggle="modal" data-target="#update_categoria" onclick="ObtenerCategoriaPorID('.$datos[$i]['categoria_id'].');"><i class="icon-edit"></i> Editar</a>
-                    <a class="dropdown-item"><i class="icon-trash"></i> Eliminar</a>
-                    </div>
+                    "op"=>($datos[$i]['estado']==1)?'
+                    <div class="btn-group">
+                        <button class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="icon-gear"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#update_categoria" onclick="ObtenerCategoriaPorID('.$datos[$i]['categoria_id'].",'editar'".');"><i class="icon-edit"></i> Editar</a>
+                            <a class="dropdown-item" onclick="ObtenerCategoriaPorID('.$datos[$i]['categoria_id'].",'editar'".');"><i class="icon-trash"></i> Eliminar</a>
+                        </div>
+                    </div>':
+                    '
+                    <div class="btn-group">
+                        <button class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="icon-gear"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="ObtenerCategoriaPorID('.$datos[$i]['categoria_id'].",'activar'".');"><i class="icon-trash"><i class="icon-check"></i> Activar</a>
+                        </div>
                     </div>',
                     "id"=>$datos[$i]['categoria_id'],
                     "nombre"=>$datos[$i]['nombre'],
@@ -92,6 +102,36 @@ switch ($_REQUEST["Operator"])
         }
         echo $response;
 
+    break;
+
+    case "eliminar_categoria":
+        if (isset($_POST["categoria_id"]) && !empty($_POST["categoria_id"]))
+        {
+            if($categoria->EliminarCategoria($_POST["categoria_id"]))
+            {
+                $response = "success";
+            }
+            else
+            {
+                $response = "error";
+            }
+        }
+        echo $response;
+    break;
+
+    case "activar_categoria":
+        if (isset($_POST["categoria_id"]) && !empty($_POST["categoria_id"]))
+        {
+            if($categoria->ActivarCategoria($_POST["categoria_id"]))
+            {
+                $response = "success";
+            }
+            else
+            {
+                $response = "error";
+            }
+        }
+        echo $response;
     break;
 }
 
