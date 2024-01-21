@@ -111,9 +111,67 @@ function LimpiarControles()
 }
 
 /// <summary>
+/// eliminate categoria
+/// </summary>
+function EliminarCategoria(categoria_id)
+{
+    $.ajax({
+        data: {"categoria_id":categoria_id},
+        url: '../Controller/CategoriaController.php?Operator=eliminar_categoria',
+        type: 'POST',
+        beforeSend:function(){},
+        success:function(response)
+        {
+            if(response == "success")
+            {
+                table.ajax.reload();
+                Swal.fire({
+                    title: "Eliminado",
+                    text: "La categoria fue elimina exitosamente",
+                    icon: "success"
+                });
+            }
+            else
+            {
+                toastr.error("error de sistema","Error");
+            }
+        }
+    })
+}
+
+/// <summary>
+/// activate categoria
+/// </summary>
+function ActivarCategoria(categoria_id)
+{
+    $.ajax({
+        data: {"categoria_id":categoria_id},
+        url: '../Controller/CategoriaController.php?Operator=activar_categoria',
+        type: 'POST',
+        beforeSend:function(){},
+        success:function(response)
+        {
+            if(response == "success")
+            {
+                table.ajax.reload();
+                Swal.fire({
+                    title: "Activada",
+                    text: "La categoria fue activada exitosamente",
+                    icon: "success"
+                });
+            }
+            else
+            {
+                toastr.error("error de sistema","Error");
+            }
+        }
+    })
+}
+
+/// <summary>
 /// get Categoria by ID
 /// </summary>
-function ObtenerCategoriaPorID(categoria_id)
+function ObtenerCategoriaPorID(categoria_id, op)
 {
     $.ajax({
         data: { "categoria_id": categoria_id },
@@ -125,11 +183,61 @@ function ObtenerCategoriaPorID(categoria_id)
             data = $.parseJSON(response);
             if(data.length > 0)
             {
-                $('#codigo_cat_edit').val(data[0]["id"]);
-                $('#nombre_cat_edit').val(data[0]['nombre']);
-                $('#descripcion_cat_edit').val(data[0]['descripcion']);
+                if(op=="editar")
+                {
+                    $('#codigo_cat_edit').val(data[0]["id"]);
+                    $('#nombre_cat_edit').val(data[0]['nombre']);
+                    $('#descripcion_cat_edit').val(data[0]['descripcion']);
+                }
+                else if (op=="eliminar")
+                {
+                    AlertEliminar(data[0]["id"]);
+                }
+                else if (op="activar")
+                {
+                    AlertActivate(data[0]["id"]);
+                }
+                
             }
             console.log(response);
         }
     });
+}
+
+function AlertEliminar(categoria_id)
+{
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.value) 
+        {
+          // eliminate categoria
+          EliminarCategoria(categoria_id);
+        }
+      });
+}
+
+function AlertActivate(categoria_id)
+{
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.value) 
+        {
+          // eliminate categoria
+          ActivarCategoria(categoria_id);
+        }
+      });
 }
